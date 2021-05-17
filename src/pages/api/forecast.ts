@@ -12,17 +12,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }&units=metric&appid=${process.env.API_KEY}`
     );
 
-    if (response.status === 200) {
-      const list = mapDayliForecast(response.data);
+    const list = mapDayliForecast(response.data);
 
-      res.status(200).json({
-        ...response.data,
-        list,
-        timestamp: Date.now(),
-      });
-    } else {
-      res.status(response.status).send(response.statusText);
-    }
+    res.status(200).json({
+      ...response.data,
+      list,
+      timestamp: Date.now(),
+    });
   } catch (error) {
     res.status(500).send(error.message);
   }

@@ -35,29 +35,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${process.env.API_KEY}`
     );
 
-    if (response.status === 200) {
-      const list = mapDayliForecast(response.data);
+    const list = mapDayliForecast(response.data);
 
-      return {
-        props: {
-          forecast: {
-            ...response.data,
-            list,
-            timestamp: Date.now(),
-          },
+    return {
+      props: {
+        forecast: {
+          ...response.data,
+          list,
+          timestamp: Date.now(),
         },
-      };
-    }
-
-    return {
-      props: {},
-    };
-  } catch {
-    return {
-      redirect: {
-        destination: '/error',
-        permanent: false,
       },
     };
+  } catch {
+    return { props: {} };
   }
 };
