@@ -15,7 +15,9 @@ export default function City(props: Props) {
   const [forecast, setForecast] = useState<Forecast>(props.forecast);
 
   const handleForecastChange = (forecast: Forecast) => {
-    router.push(`/city/${forecast.city.name}`, undefined, { shallow: true });
+    if (!!forecast) {
+      router.push(`/city/${forecast.city.name}`, undefined, { shallow: true });
+    }
     setForecast(forecast);
   };
 

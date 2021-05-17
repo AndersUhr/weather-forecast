@@ -14,9 +14,11 @@ export default function Home(props: Props) {
   const [forecast, setForecast] = useState<Forecast>(props.forecast);
 
   useEffect(() => {
-    router.push(`/?query=${forecast?.city?.name}`, undefined, {
-      shallow: true,
-    });
+    if (!!forecast) {
+      router.push(`/?query=${forecast?.city?.name}`, undefined, {
+        shallow: true,
+      });
+    }
   }, [forecast]);
 
   const handleForecastChange = (forecast: Forecast) => {
