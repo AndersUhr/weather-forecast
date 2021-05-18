@@ -58,6 +58,7 @@ export function SearchInput({ onForecastChange }: Props) {
             type="button"
             onClick={getLocation}
             data-testid="locationButton"
+            aria-label="search by location"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,6 +99,7 @@ export function SearchInput({ onForecastChange }: Props) {
             type="submit"
             className="bg-white w-auto flex justify-end items-center rounded-tr rounded-br focus:outline-none"
             data-testid="submitButton"
+            aria-label="search"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
