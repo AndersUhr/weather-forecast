@@ -6,7 +6,6 @@ import { SearchInput } from './search-input';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-jest;
 
 describe('SearchInput', () => {
   it('calls api on submit', async () => {

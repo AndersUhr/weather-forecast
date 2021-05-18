@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Home from '../../src/pages/index';
 import { resp } from '../__mocks__/apiResponse';
@@ -8,20 +7,19 @@ import { Forecast, mapDayliForecast } from '../../src/types/forecast';
 
 const list = mapDayliForecast(resp as Forecast);
 
-jest.mock('next/dist/client/router', () => ({
+jest.mock('next/router', () => ({
   useRouter() {
     return {
       route: '/',
       pathname: '',
       query: '',
       asPath: '',
-      push: () => {},
+      push: mockPush,
     };
   },
 }));
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockPush = jest.fn();
 
 describe('Index page', () => {
   it('renders search and no forecast when no forecast', () => {
@@ -30,7 +28,7 @@ describe('Index page', () => {
     expect(screen.getByRole('search')).toBeInTheDocument();
     expect(screen.queryByText('Data fetched at')).not.toBeInTheDocument();
   });
-  it('displays forecast when available', async () => {
+  it('displays search and forecast when available', async () => {
     render(
       <Home
         forecast={{
@@ -41,6 +39,21 @@ describe('Index page', () => {
       />
     );
 
+    expect(screen.getByRole('search')).toBeInTheDocument();
     expect(screen.getByText('Data fetched at')).toBeInTheDocument();
+  });
+  it('should push url query on change forecast', async () => {
+    render(<Home forecast={undefined} />);
+
+    const button = screen.getByTestId('submitButton');
+    const searchField = screen.getByPlaceholderText('City');
+    fireEvent.change(searchField, { target: { value: 'odense' } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith('/?query=Odense', undefined, {
+        shallow: true,
+      });
+    });
   });
 });

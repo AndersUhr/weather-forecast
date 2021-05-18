@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { Forecast, mapDayliForecast } from '../types/forecast';
 import { ForecastCard, Layout, SearchInput } from '../components';
 
@@ -14,7 +14,7 @@ export default function Home(props: Props) {
   const [forecast, setForecast] = useState<Forecast>(props.forecast);
 
   useEffect(() => {
-    if (!!forecast) {
+    if (forecast) {
       router.push(`/?query=${forecast?.city?.name}`, undefined, {
         shallow: true,
       });
