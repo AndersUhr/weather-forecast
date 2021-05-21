@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, parse, toDate } from 'date-fns';
 import { Forecast } from '../../types/forecast';
 
 interface Props {
@@ -9,7 +9,7 @@ export function ForecastCard({ forecast }: Props) {
   const [, ...nextDays] = forecast.list;
 
   const formattedTimestamp = format(
-    new Date(forecast.timestamp),
+    toDate(forecast.timestamp),
     'yyyy-MM-dd HH:mm:ss'
   );
 
@@ -45,7 +45,10 @@ export function ForecastCard({ forecast }: Props) {
             </div>
             <div>
               <p className="text-xl text-gray-500">
-                {format(new Date(today.dt_txt), 'EEEE')}
+                {format(
+                  parse(today.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
+                  'EEEE'
+                )}
               </p>
             </div>
             <div>
@@ -62,12 +65,18 @@ export function ForecastCard({ forecast }: Props) {
               <div className="flex items-center w-2/6 md:w-auto">
                 <div className="md:hidden">
                   <p className="text-2xl">
-                    {format(new Date(day.dt_txt), 'EEEE')}
+                    {format(
+                      parse(today.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
+                      'EEEE'
+                    )}
                   </p>
                 </div>
                 <div className="hidden md:block">
                   <p className="text-2xl">
-                    {format(new Date(day.dt_txt), 'EE')}
+                    {format(
+                      parse(today.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
+                      'EE'
+                    )}
                   </p>
                 </div>
               </div>
