@@ -66,7 +66,7 @@ export function ForecastCard({ forecast }: Props) {
                 <div className="md:hidden">
                   <p className="text-2xl">
                     {format(
-                      parse(today.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
+                      parse(day.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
                       'EEEE'
                     )}
                   </p>
@@ -74,7 +74,7 @@ export function ForecastCard({ forecast }: Props) {
                 <div className="hidden md:block">
                   <p className="text-2xl">
                     {format(
-                      parse(today.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
+                      parse(day.dt_txt, 'yyyy-MM-dd HH:mm:ss', new Date()),
                       'EE'
                     )}
                   </p>
