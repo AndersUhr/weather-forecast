@@ -32,7 +32,7 @@ export function ForecastCard({ forecast }: Props) {
 
           <div className="hidden sm:block">
             <img
-              src={`http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`}
               alt={today.weather[0].description}
               width="100"
               height="100"
@@ -73,7 +73,7 @@ export function ForecastCard({ forecast }: Props) {
               </div>
               <div>
                 <img
-                  src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+                  src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                   alt={day.weather[0].description}
                   width="100"
                   height="100"
